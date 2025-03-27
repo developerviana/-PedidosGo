@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  pedidosgo:
+    build:
+      context: .
+    ports:
+      - "9000:9000"
+    depends_on:
+      - rabbitmq
+      - mongodb
+    environment:
+      - RABBITMQ_URL=rabbitmq:5672
+      - MONGO_URL=mongodb://mongo:27017
+    networks:
+      - app-network
+
+  rabbitmq:
+    image: "rabbitmq:management"
+    ports:
+      - "5672:5672"    # Porta para comunicação do RabbitMQ
+      - "15672:15672"  # Porta para acessar o console web do RabbitMQ
+    networks:
+      - app-network
+
+  mongo:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"  # Porta do MongoDB
+    environment:
+      - MONGO-INITDB_ROOT_USERNAME=admin
+      - MONGO-INITDB_ROOT_USERNAME=admin
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
