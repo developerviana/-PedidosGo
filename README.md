@@ -1,4 +1,4 @@
-# -PedidosGo
+# PedidosGo
 Funcionalidades:
 
     Processamento de pedidos a partir de uma fila RabbitMQ.
